@@ -137,6 +137,7 @@ exports.resetPassword=CatchAsyncError(async (req,res,next)=>{
 
 
 //Get User Profile - /api/v1/myprofile
+// Get User Profile - /api/v1/myprofile
 exports.getUserProfile = CatchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id);
   
@@ -146,14 +147,16 @@ exports.getUserProfile = CatchAsyncError(async (req, res, next) => {
       BASE_URL = `${req.protocol}://${req.get('host')}`;
     }
   
-    user.avatar = user.avatar ? `${BASE_URL}${user.avatar}` : null;
+    // Check if avatar is already a complete URL
+    if (user.avatar && !user.avatar.startsWith('http')) {
+        user.avatar = `${BASE_URL}${user.avatar}`;
+    }
   
     res.status(200).json({
       success: true,
       user,
     });
-  });
-
+});
 
 
 
