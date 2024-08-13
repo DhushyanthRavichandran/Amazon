@@ -137,13 +137,26 @@ exports.resetPassword=CatchAsyncError(async (req,res,next)=>{
 
 
 //Get User Profile - /api/v1/myprofile
-exports.getUserProfile=CatchAsyncError(async (req,res,next)=>{
-    const user=await User.findById(req.user.id);
+exports.getUserProfile = CatchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+  
+    // Construct the avatar URL based on the environment
+    let BASE_URL = process.env.BACKEND_URL;
+    if (process.env.NODE_ENV === "production") {
+      BASE_URL = `${req.protocol}://${req.get('host')}`;
+    }
+  
+    user.avatar = user.avatar ? `${BASE_URL}${user.avatar}` : null;
+  
     res.status(200).json({
-        success:true,
-        user
-    })
-})
+      success: true,
+      user,
+    });
+  });
+
+
+
+
 //Change Password  - api/v1/password/change
 exports.changePassword=CatchAsyncError(async (req,res,next)=>{
     const user=await User.findById(req.user.id).select('+password');
