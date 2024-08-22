@@ -126,17 +126,6 @@ exports.resetPassword=CatchAsyncError(async (req,res,next)=>{
 
 })
 
-
-
-
-
-
-
-
-
-
-
-//Get User Profile - /api/v1/myprofile
 // Get User Profile - /api/v1/myprofile
 exports.getUserProfile = CatchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id);
