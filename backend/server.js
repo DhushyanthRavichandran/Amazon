@@ -1,10 +1,15 @@
 const app = require('./app');
 const databaseConnect = require('./config/database');
 const path = require('path');
-
+const cors=require('cors')
 databaseConnect();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors({
+  origin: 'https://d-amazon-ecomm.vercel.app', // Your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
