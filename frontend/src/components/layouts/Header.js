@@ -36,8 +36,8 @@ const Header = () => {
                     <figure className='avatar avatar-nav'>
                       <Image width="50px" src={user?.avatar ?? '/images/default_avatar.png'} alt={user?.name || "User Avatar"} />
                     </figure>
-                    <span>{user.name}</span>
-                  </Dropdown.Toggle>
+                    <span>{user?.name || 'Default Name'}</span>
+                    </Dropdown.Toggle>
                   <Dropdown.Menu>
                   { user.role === 'admin' && <Dropdown.Item onClick={() => {navigate('admin/dashboard')}} className='text-dark'>Dashboard</Dropdown.Item> }
                   <Dropdown.Item onClick={() => {navigate('/myprofile')}} className='text-dark'>Profile</Dropdown.Item>
