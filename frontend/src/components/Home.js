@@ -23,7 +23,7 @@ const setCurrPageNo =(pageNo)=>{
       });
     dispatch(getProducts(currPage));
   }, [dispatch,currPage]);
-  console.log(currPage);
+  
 
   return (
     <Fragment>
